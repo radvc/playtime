@@ -49,6 +49,6 @@
     </p>
   <% end %>
 
-  <%= link_to "Back to #{@pledge.wishlist.name}", @pledge.wishlist %> |
+  <%= link_to "Back to #{@pledge.wishlist.name}", wishlist_by_slug_path(@pledge.wishlist.slug) %> |
   <%= link_to "Back to user page", @pledge.user %>
 </div>
