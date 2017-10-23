@@ -19,7 +19,7 @@ feature "Browsing the site:" do
       visit "/"
       click_link "St. Joseph's"
 
-      expect(current_path).to eq wishlist_path(st_josephs)
+      expect(current_path).to eq wishlist_by_slug_path(st_josephs.slug)
     end
 
     context "when there are wishlist items" do
