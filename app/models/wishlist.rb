@@ -17,4 +17,13 @@ class Wishlist < ApplicationRecord
 
   validates :name, presence: true,
                    uniqueness: true
+
+  before_save :create_slug
+  before_update :create_slug
+
+  private
+  
+  def create_slug
+    self.slug = name.parameterize
+  end
 end
