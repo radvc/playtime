@@ -26,7 +26,7 @@ describe WishlistsController do
   describe "GET #show" do
     it "returns a success response" do
       wishlist = create(:wishlist, valid_attributes)
-      get :show, params: {id: wishlist.to_param}, session: {}
+      get :show, params: {slug: wishlist.slug}, session: {}
       expect(response).to be_success
     end
   end
@@ -182,7 +182,7 @@ describe WishlistsController do
         it "redirects to the created wishlist" do
           post :create, params: {wishlist: valid_attributes},
                         session: admin_session
-          expect(response).to redirect_to(Wishlist.last)
+          expect(response).to redirect_to wishlist_by_slug_path(Wishlist.last.slug)
         end
       end
 
@@ -284,7 +284,7 @@ describe WishlistsController do
           put :update, params: {id: wishlist.to_param,
                                 wishlist: valid_attributes},
                        session: admin_session
-          expect(response).to redirect_to(wishlist)
+          expect(response).to redirect_to wishlist_by_slug_path(wishlist.slug)
         end
       end
 
