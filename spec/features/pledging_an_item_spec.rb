@@ -94,7 +94,7 @@ feature "Pledging an item:" do
     end
 
     scenario "I can re-pledge an item to increment its quantity" do
-      visit wishlist_path(pledge.wishlist)
+      visit wishlist_by_slug_path(pledge.wishlist.slug)
       click_button "Pledge to Donate"
       expect(page).to have_text "Number pledged 2"
     end
