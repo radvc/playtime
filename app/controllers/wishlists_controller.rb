@@ -3,7 +3,7 @@ class WishlistsController < ApplicationController
 
   def show
     skip_authorization
-    @wishlist = Wishlist.includes(wishlist_items: :item).find(params[:id])
+    @wishlist = Wishlist.includes(wishlist_items: :item).find_by_slug(params[:slug])
     @site_managers = @wishlist.users
     @wishlist_items = @wishlist.wishlist_items.priority_order
   end
@@ -25,7 +25,7 @@ class WishlistsController < ApplicationController
     attach_site_managers
 
     if @wishlist.save
-      redirect_to @wishlist, notice: 'Wishlist was successfully created.'
+      redirect_to wishlist_by_slug_path(@wishlist.slug), notice: 'Wishlist was successfully created.'
     else
       render :new
     end
