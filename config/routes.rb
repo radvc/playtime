@@ -5,12 +5,14 @@ Rails.application.routes.draw do
   end
 
   # Wishlists & Items
-  resources :wishlists, except: [:index] do
+  resources :wishlists, except: [:index, :show] do
     resources :wishlist_items, shallow: true,
                                only: [:create, :edit, :update, :destroy]
     resource :amazon_search,   controller: :amazon_search,
                                only: [:new, :show]
   end
+  
+  get 'wishlists/:slug', to: 'wishlists#show', as: :wishlist_by_slug
 
   # Users
   resources :users
