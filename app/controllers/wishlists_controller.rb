@@ -35,7 +35,7 @@ class WishlistsController < ApplicationController
     authorize @wishlist
     attach_site_managers
     if @wishlist.update(wishlist_params)
-      redirect_to @wishlist, notice: 'Wishlist was successfully updated.'
+      redirect_to wishlist_by_slug_path(@wishlist.slug), notice: 'Wishlist was successfully updated.'
     else
       render :edit
     end
