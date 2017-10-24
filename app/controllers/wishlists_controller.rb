@@ -3,7 +3,7 @@ class WishlistsController < ApplicationController
 
   def show
     skip_authorization
-    @wishlist = Wishlist.includes(wishlist_items: :item).find(params[:id])
+    @wishlist = Wishlist.includes(wishlist_items: :item).find_by_slug(params[:id])
     @site_managers = @wishlist.users
     @wishlist_items = @wishlist.wishlist_items.priority_order
   end
@@ -50,7 +50,7 @@ class WishlistsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_wishlist
-      @wishlist = Wishlist.find(params[:id])
+      @wishlist = Wishlist.find_by_slug(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

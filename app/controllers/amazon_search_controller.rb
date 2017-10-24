@@ -21,7 +21,7 @@ class AmazonSearchController < ApplicationController
     end
 
     def set_wishlist
-      @wishlist = Wishlist.find(params[:wishlist_id])
+      @wishlist = Wishlist.find_by_slug(params[:wishlist_id])
     end
 
     def pundit_user

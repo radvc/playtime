@@ -7,7 +7,7 @@ class WishlistItemsController < ApplicationController
   end
 
   def create
-    wishlist = Wishlist.find(params[:wishlist_id])
+    wishlist = Wishlist.find_by_slug(params[:wishlist_id])
     authorize wishlist.wishlist_items.build
 
     @wishlist_item = wishlist.wishlist_items.create!(wishlist_item_create_params)
