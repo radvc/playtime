@@ -104,12 +104,11 @@ feature "Managing items and wishlists:" do
 
     scenario "I can update an existing wishlist" do
       click_link "DC General"
-      dc_general_path = current_path
       click_link "Edit Wishlist"
       fill_in("wishlist_name", with: "VA General")
       click_button "Update Wishlist"
 
-      expect(current_path).to eq dc_general_path
+      expect(current_path).to eq wishlist_path('va-general')
       expect(page).to have_text "Wishlist was successfully updated."
       expect(page).to have_text "VA General"
     end
