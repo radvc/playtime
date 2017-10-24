@@ -18,6 +18,10 @@ class Wishlist < ApplicationRecord
   validates :name, presence: true,
                    uniqueness: true
 
+  def to_param
+    slug
+  end
+
   before_save :create_slug
   before_update :create_slug
 
