@@ -11,7 +11,7 @@ class WishlistItemsController < ApplicationController
     authorize wishlist.wishlist_items.build
 
     @wishlist_item = wishlist.wishlist_items.create!(wishlist_item_create_params)
-    redirect_to wishlist_by_slug_path(@wishlist_item.wishlist.slug), notice: "Added #{@wishlist_item.name}."
+    redirect_to wishlist_path(@wishlist_item.wishlist), notice: "Added #{@wishlist_item.name}."
   end
 
   def edit
@@ -22,7 +22,7 @@ class WishlistItemsController < ApplicationController
     authorize @wishlist_item
 
     if @wishlist_item.update(wishlist_item_params)
-      redirect_to wishlist_by_slug_path(@wishlist_item.wishlist.slug), notice: 'Wishlist item was successfully updated.'
+      redirect_to @wishlist_item.wishlist, notice: 'Wishlist item was successfully updated.'
     else
       render :edit
     end
@@ -34,7 +34,7 @@ class WishlistItemsController < ApplicationController
     wishlist = @wishlist_item.wishlist
     @wishlist_item.destroy
 
-    redirect_to wishlist_by_slug_path(wishlist.slug), notice: 'Item was successfully removed from wishlist.'
+    redirect_to wishlist, notice: 'Item was successfully removed from wishlist.'
   end
 
   private

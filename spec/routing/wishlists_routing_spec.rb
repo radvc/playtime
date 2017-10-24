@@ -8,7 +8,7 @@ RSpec.describe WishlistsController, type: :routing do
     end
 
     it "routes to #show" do
-      expect(:get => "/wishlists/dc-general").to route_to("wishlists#show", :slug => "dc-general")
+      expect(:get => "/wishlists/1").to route_to("wishlists#show", :id => "1")
     end
 
     it "routes to #edit" do

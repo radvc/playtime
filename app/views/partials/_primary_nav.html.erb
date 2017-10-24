@@ -24,7 +24,7 @@
 
           <div class="dropdown-menu" id="wishlists">
             <% @wishlists.each do |wishlist| %>
-              <%= link_to wishlist.name, wishlist_by_slug_path(wishlist.slug),
+              <%= link_to wishlist.name, wishlist_path(wishlist),
                                          class: "wishlist dropdown-item" %>
             <% end %>
           </div>

@@ -15,7 +15,7 @@ feature "Managing items and wishlists:" do
     let(:wishlist) { site_manager.wishlists.first }
 
     scenario "I can add a new item to my wishlist", :external do
-      visit wishlist_by_slug_path(wishlist.slug)
+      visit wishlist_path(wishlist)
       click_link "Add to Wishlist"
       fill_in "search_field", with: "corgi"
       click_button "Search Amazon"
@@ -34,7 +34,7 @@ feature "Managing items and wishlists:" do
     end
 
     scenario "My search can't be blank", :external do
-      visit wishlist_by_slug_path(wishlist.slug)
+      visit wishlist_path(wishlist)
       click_link "Add to Wishlist"
       click_button "Search Amazon"
 
@@ -44,7 +44,7 @@ feature "Managing items and wishlists:" do
     scenario "I can edit a wishlist item on my wishlist" do
       create(:wishlist_item, wishlist: wishlist)
 
-      visit wishlist_by_slug_path(wishlist.slug)
+      visit wishlist_path(wishlist)
       within ".wishlist-item-tools" do
         click_link "Edit"
       end
@@ -58,7 +58,7 @@ feature "Managing items and wishlists:" do
 
     scenario "I can remove an item from my wishlist" do
       create(:wishlist_item, wishlist: wishlist, staff_message: "Another item.")
-      visit wishlist_by_slug_path(wishlist.slug)
+      visit wishlist_path(wishlist)
 
       within ".wishlist-item-tools" do
         click_link "Remove"
@@ -69,16 +69,16 @@ feature "Managing items and wishlists:" do
     end
 
     scenario "I cannot delete my wishlist" do
-      visit wishlist_by_slug_path(wishlist.slug)
+      visit wishlist_path(wishlist)
 
-      visit wishlist_by_slug_path(wishlist.slug)
+      visit wishlist_path(wishlist)
       within "#wishlist-actions" do
         expect(page).not_to have_link "Destroy"
       end
     end
 
     scenario "I cannot edit my wishlist" do
-      visit wishlist_by_slug_path(wishlist.slug)
+      visit wishlist_path(wishlist)
       expect(page).not_to have_link "Edit Wishlist"
 
       visit edit_wishlist_path(wishlist)
@@ -104,11 +104,12 @@ feature "Managing items and wishlists:" do
 
     scenario "I can update an existing wishlist" do
       click_link "DC General"
+      dc_general_path = current_path
       click_link "Edit Wishlist"
       fill_in("wishlist_name", with: "VA General")
       click_button "Update Wishlist"
 
-      expect(current_path).to eq wishlist_by_slug_path('va-general')
+      expect(current_path).to eq dc_general_path
       expect(page).to have_text "Wishlist was successfully updated."
       expect(page).to have_text "VA General"
     end
