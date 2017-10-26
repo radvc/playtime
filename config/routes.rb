@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resource :amazon_search,   controller: :amazon_search,
                                only: [:new, :show]
   end
-  
+
   # Users
   resources :users
 
